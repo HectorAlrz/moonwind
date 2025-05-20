@@ -1,23 +1,15 @@
 import sqlite3
 import os
-
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-PROJECT_ROOT_DIR = os.path.dirname(SCRIPT_DIR)
-DB_FILENAME = 'moonwind.db'
-
-DB_PATH = os.path.join(PROJECT_ROOT_DIR, 'data', DB_FILENAME)
+from utils.db import get_connection
 
 def insert_data():
-    data_dir = os.path.join(PROJECT_ROOT_DIR, 'data')
-    os.makedirs(data_dir, exist_ok=True)
-
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("PRAGMA foreign_keys = ON;")
 
     cursor.execute("SELECT COUNT(*) FROM users")
     if cursor.fetchone()[0] > 0:
-        print(f"Data already seems to exist in '{DB_NAME}'. Skipping insertion to avoid duplicates.")
+        print(f"Data already seems to exist in 'db'. Skipping insertion to avoid duplicates.")
         conn.close()
         return
 
@@ -95,7 +87,7 @@ def insert_data():
     conn.commit()
     conn.close()
     print("-" * 30)
-    print(f"Data inserted successfully into '{DB_PATH}'.")
+    print(f"Data inserted successfully into 'db'.")
     print("-" * 30)
 
 if __name__ == '__main__':

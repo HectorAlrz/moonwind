@@ -1,17 +1,10 @@
 import sqlite3
 import os
+from utils.db import get_connection
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-PROJECT_ROOT_DIR = os.path.dirname(SCRIPT_DIR)
-DB_FILENAME = 'moonwind.db'
-
-DB_PATH = os.path.join(PROJECT_ROOT_DIR, 'data', DB_FILENAME)
 
 def create_tables():
-    data_dir = os.path.join(PROJECT_ROOT_DIR, 'data')
-    os.makedirs(data_dir, exist_ok=True)
-
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_connection
     cursor = conn.cursor()
     cursor.execute("PRAGMA foreign_keys = ON;")
 
@@ -94,7 +87,7 @@ def create_tables():
     conn.commit()
     conn.close()
     print("-" * 30)
-    print(f"Schema setup in '{DB_PATH}' complete. Tables created (if they didn't exist).")
+    print(f"Schema setup complete using centralized connection. Tables created (if they didn't exist).")
     print("-" * 30)
 
 if __name__ == '__main__':
