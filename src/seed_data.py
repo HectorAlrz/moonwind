@@ -1,5 +1,3 @@
-import sqlite3
-import os
 from utils.db import get_connection
 
 def insert_data():
