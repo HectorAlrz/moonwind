@@ -13,5 +13,6 @@ def get_connection():
 
     db_file_path = os.path.join(data_dir, 'moonwind.db')
     conn = sqlite3.connect(db_file_path)
+    conn.row_factory = sqlite3.Row
 
     return conn

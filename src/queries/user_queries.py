@@ -37,9 +37,8 @@ class UserQueries:
                     print(f"Fetched {len(result)} users from the database.")
                 elif mode == QueryMode.COMMIT:
                     conn.commit()
-                    if cursor.lastrowid:
-                        result = cursor.lastrowid
-                        print(f"Inserted new record with ID: {result}")
+                    result = cursor.rowcount
+                    print(f"Rows affected: {result}")
 
         except Exception as e:
             print(f"Database error in _execute_query: {e}")
@@ -58,12 +57,49 @@ class UserQueries:
             mode=QueryMode.COMMIT
         )
 
+    def update_user(self, user_id, username=None, email=None, password=None, full_name=None, settings=None, profile_picture=None):
+        if not user_id:
+            print("No user_id provided for update.")
+            return 0
+
+        update_fields = {
+            "username": username,
+            "email": email,
+            "password": password,
+            "full_name": full_name,
+            "profile_picture": profile_picture
+        }
+
+        update_fields = {k: v for k, v in update_fields.items() if v is not None}
+
+        try:
+            set_clause = ", ".join(f"{field} = ?" for field in update_fields)
+            query = f"UPDATE users SET {set_clause} WHERE user_id = ?;"
+
+            params = list(update_fields.values()) + [user_id]
+
+
+            rows_affected = self._execute_query(query, params=tuple(params), mode=QueryMode.COMMIT)
+
+            if rows_affected > 0:
+                print(f"Successfully updated user with ID: {user_id}, affected rows: {rows_affected}, changes: {update_fields}")
+            else:
+                print(f"No changes made or user with ID: {user_id} not found")
+
+            return rows_affected or 0
+
+        except Exception as e:
+            print(f"Error updating user with ID {user_id}: {str(e)}")
+            raise
+
+
 if __name__ == '__main__':
     print("--- Running User Queries Script ---")
     user_queries = UserQueries()
     #retrieved_users = user_queries.get_all_users()
-    get_user = user_queries.get_user_by_id(6)
+    get_user = user_queries.get_user_by_id(1)
     #create_user = user_queries.create_user(username="Jotaro", email="fake@email.com", password="123", full_name="Jotaro Kujo", settings='{}')
+    update_user = user_queries.update_user(1, username="Joe Dohn")
 
     # if retrieved_users:
     #     print("\n--- All Users ---")
