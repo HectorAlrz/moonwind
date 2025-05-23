@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Queries</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 2rem;
+            background-color: oklch(0.91 0.048 83.6);
+        }
+        .user-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        .user-card {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        .user-card h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: oklch(0.41 0.077 74.3);
+        }
+        .user-card p {
+            margin: 0.3rem 0;
+            color: #555;
+        }
+        h1 {
+            color: oklch(0.41 0.077 74.3);
+        }
+    </style>
+</head>
+<body>
+    <h1>User List</h1>
+    <div class="user-grid">
+        {% for user in users %}
+            <div class="user-card">
+                <h3>{{ user.full_name }}</h3>
+                <p><strong>Username:</strong> {{ user.username }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                {% if user.created_at %}
+                    <p><strong>Joined:</strong> {{ user.created_at }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
