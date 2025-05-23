@@ -1,8 +1,8 @@
 # Moonwind 🌙
+## Alpha Version -NO COMPLETA-
+Bienvenido a Moonwind, una aplicación diseñada para organizar proyectos. Este proyecto utiliza una base de datos SQLite3 para almacenar la información y Flask para la visualización de ciertos datos.
 
-Bienvenido a Moonwind, una aplicación diseñada para [**Describe brevemente el propósito principal de Moonwind aquí. Ej: "gestionar proyectos e ideas al estilo Trello/Notion", o "servir como backend para una app de productividad", etc.**]. Este proyecto utiliza una base de datos SQLite3 para almacenar la información y Flask para la visualización de ciertos datos.
-
-## ✨ Características Principales (Opcional, si aplica)
+## ✨ Características Principales
 
 *   Gestión de usuarios.
 *   Creación y organización de "historias" (proyectos o tableros).
