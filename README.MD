@@ -2,16 +2,13 @@
 ![bootcamp](public/bootcamp.png)
 
 
-Bienvenido a Moonwind, una aplicación diseñada para [**Describe brevemente el propósito principal de Moonwind aquí. Ej: "gestionar proyectos e ideas al estilo Trello/Notion", o "servir como backend para una app de productividad", etc.**]. Este proyecto utiliza una base de datos SQLite3 para almacenar la información y Flask para la visualización de ciertos datos.
-
-## ✨ Características Principales (Opcional, si aplica)
+## ✨ Características Principales
 
 *   Gestión de usuarios.
 *   Creación y organización de "historias" (proyectos o tableros).
 *   Listas y tarjetas para desglosar tareas o ideas.
 *   Comentarios en tarjetas para colaboración.
 *   Asignación de usuarios a tarjetas.
-*   [Añade más características si las tienes]
 
 ## 📋 Requisitos Previos
 
@@ -28,7 +25,7 @@ Sigue estos pasos para configurar y ejecutar el proyecto en tu máquina local:
 
 1.  **Clona el Repositorio:**
     ```bash
-    git clone [URL_DE_TU_REPOSITORIO_GIT]
+    git clone https://github.com/HectorAlrz/moonwind.git
     cd moonwind
     ```
 
@@ -81,21 +78,17 @@ moonwind/
 │   │   ├── __init__.py
 │   │   └── db.py
 │   ├── queries/              # Módulos con funciones de consulta SQL
-│   │   ├── __init__.py
 │   │   └── user_queries.py
 │   │   └── codigo_facilito_queries.py
-│   │   └── ... (otros archivos de queries)
-│   └── [app_flask.py]        # (Si tienes un archivo principal para Flask)
 ├── venv/                     # Entorno virtual de Python (ignorado por Git)
 ├── .gitignore                # Archivos y carpetas ignorados por Git
 ├── requirements.txt          # Dependencias del proyecto (generar con `pip freeze > requirements.txt`)
 └── README.md                 # Este archivo
 
-# Moonwind
+# Esquema de la base de datos
 
-# Este proyecto utiliza una base de datos en sqlite3. A continuación se explica la estructura y componentes principales:
+🏗️ Esquema de la Base de Datos
 
-## 🏗️ Esquema de la Base de Datos
 📄 Tabla users
 Contiene la información de los usuarios registrados.
 
@@ -178,7 +171,6 @@ Relaciona usuarios con tarjetas asignadas (muchos a muchos).
 | `card_id` | INTEGER | Foreign Key → `cards.card_id` |
 | `user_id` | INTEGER | Foreign Key → `users.user_id` |
 
-
 🔐 Clave primaria compuesta: (card_id, user_id)
 
 # Esquema de la base de datos
@@ -192,12 +184,13 @@ is_starred actúa como un booleano: 0 (no destacada), 1 (destacada).
 
 Las tablas story_members y card_assigned_users usan claves primarias compuestas para evitar duplicados.
 
-## Flask
-
-Utilizamos **Flask** como framework web para visualizar resultados en el navegador. Flask permite crear endpoints y mostrar los datos almacenados en la base de datos de manera sencilla y eficiente.
 
 ## Queries
-En la carpeta `queries/codigo_facilito_queries.py` se encuentran las consultas SQL solicitadas para Código Facilito. Estas queries permiten extraer información específica de la base de datos según los requerimientos del curso o proyecto para correr estas queries hay que irnos a la parte de abajo donde tenemos `if __name__ == '__main__':` y para probar cada querie hay que quitar el comentario dependiendo la que queremos probar y en la terminal corremos el comando
+En la carpeta `queries/codigo_facilito_queries.py` se encuentran las consultas SQL solicitadas para Código Facilito.
+Estas queries permiten extraer información específica de la base de datos según los requerimientos del curso o proyecto
+para correr estas queries hay que irnos a la parte de abajo donde tenemos `if __name__ == '__main__':`
+y para probar cada querie hay que quitar el comentario dependiendo la que queremos probar y en la terminal corremos el comando:
+
     ```bash
     python3 src/database_setup.py
     python3 src/seed_data.py
