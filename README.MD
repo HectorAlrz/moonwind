@@ -9,7 +9,6 @@ Bienvenido a Moonwind, una aplicación diseñada para organizar proyectos. Este 
 *   Listas y tarjetas para desglosar tareas o ideas.
 *   Comentarios en tarjetas para colaboración.
 *   Asignación de usuarios a tarjetas.
-*   [Añade más características si las tienes]
 
 ## 📋 Requisitos Previos
 
@@ -26,7 +25,7 @@ Sigue estos pasos para configurar y ejecutar el proyecto en tu máquina local:
 
 1.  **Clona el Repositorio:**
     ```bash
-    git clone [URL_DE_TU_REPOSITORIO_GIT]
+    git clone https://github.com/HectorAlrz/moonwind.git
     cd moonwind
     ```
 
@@ -79,19 +78,14 @@ moonwind/
 │   │   ├── __init__.py
 │   │   └── db.py
 │   ├── queries/              # Módulos con funciones de consulta SQL
-│   │   ├── __init__.py
 │   │   └── user_queries.py
 │   │   └── codigo_facilito_queries.py
-│   │   └── ... (otros archivos de queries)
-│   └── [app_flask.py]        # (Si tienes un archivo principal para Flask)
 ├── venv/                     # Entorno virtual de Python (ignorado por Git)
 ├── .gitignore                # Archivos y carpetas ignorados por Git
 ├── requirements.txt          # Dependencias del proyecto (generar con `pip freeze > requirements.txt`)
 └── README.md                 # Este archivo
 
-# Moonwind
-
-# Este proyecto utiliza una base de datos en sqlite3. A continuación se explica la estructura y componentes principales:
+# Esquema de la base de datos
 
 ## 🏗️ Esquema de la Base de Datos
 📄 Tabla users
