@@ -175,18 +175,19 @@ Relaciona usuarios con tarjetas asignadas (muchos a muchos).
 🔐 Clave primaria compuesta: (card_id, user_id)
 
 erDiagram
-    users ||--o{ story : creates
-    users ||--o{ story_members : joins
-    users ||--o{ comments : writes
-    users ||--o{ card_assigned_users : assigned
+    users ||--o{ story : "creates (created_by)"
+    users }o--|| story_members : "is member of"
+    users ||--o{ comments : "writes"
+    users }o--|| card_assigned_users : "is assigned to"
+    users ||--o{ cards : "creates (created_by)"
 
-    story ||--o{ lists : contains
-    story ||--o{ story_members : includes
+    story ||--o{ lists : "contains"
+    story ||--o{ story_members : "has members"
 
-    lists ||--o{ cards : contains
+    lists ||--o{ cards : "contains"
 
-    cards ||--o{ comments : has
-    cards ||--o{ card_assigned_users : has
+    cards ||--o{ comments : "has"
+    cards ||--o{ card_assigned_users : "has assignees"
 
 📘 Notas Técnicas
 Todas las claves foráneas respetan PRAGMA foreign_keys = ON en SQLite.
