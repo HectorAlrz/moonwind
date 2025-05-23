@@ -171,8 +171,8 @@ Relaciona usuarios con tarjetas asignadas (muchos a muchos).
 | `card_id` | INTEGER | Foreign Key → `cards.card_id` |
 | `user_id` | INTEGER | Foreign Key → `users.user_id` |
 
-
 🔐 Clave primaria compuesta: (card_id, user_id)
+```
  
 ```mermaid
 erDiagram
