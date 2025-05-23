@@ -1,4 +1,6 @@
 # Moonwind 🌙
+![bootcamp](public/bootcamp.png)
+
 
 Bienvenido a Moonwind, una aplicación diseñada para [**Describe brevemente el propósito principal de Moonwind aquí. Ej: "gestionar proyectos e ideas al estilo Trello/Notion", o "servir como backend para una app de productividad", etc.**]. Este proyecto utiliza una base de datos SQLite3 para almacenar la información y Flask para la visualización de ciertos datos.
 
@@ -179,19 +181,9 @@ Relaciona usuarios con tarjetas asignadas (muchos a muchos).
 
 🔐 Clave primaria compuesta: (card_id, user_id)
 
-erDiagram
-    users ||--o{ story : creates
-    users ||--o{ story_members : joins
-    users ||--o{ comments : writes
-    users ||--o{ card_assigned_users : assigned
+# Esquema de la base de datos
 
-    story ||--o{ lists : contains
-    story ||--o{ story_members : includes
-
-    lists ||--o{ cards : contains
-
-    cards ||--o{ comments : has
-    cards ||--o{ card_assigned_users : has
+![bootcamp](public/schema.png)
 
 📘 Notas Técnicas
 Todas las claves foráneas respetan PRAGMA foreign_keys = ON en SQLite.
