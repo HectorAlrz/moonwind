@@ -1,0 +1,212 @@
+# Moonwind 🌙
+
+Bienvenido a Moonwind, una aplicación diseñada para [**Describe brevemente el propósito principal de Moonwind aquí. Ej: "gestionar proyectos e ideas al estilo Trello/Notion", o "servir como backend para una app de productividad", etc.**]. Este proyecto utiliza una base de datos SQLite3 para almacenar la información y Flask para la visualización de ciertos datos.
+
+## ✨ Características Principales (Opcional, si aplica)
+
+*   Gestión de usuarios.
+*   Creación y organización de "historias" (proyectos o tableros).
+*   Listas y tarjetas para desglosar tareas o ideas.
+*   Comentarios en tarjetas para colaboración.
+*   Asignación de usuarios a tarjetas.
+*   [Añade más características si las tienes]
+
+## 📋 Requisitos Previos
+
+Antes de empezar, asegúrate de tener instalado:
+
+*   Python (se recomienda versión 3.8 o superior)
+*   `pip` (el gestor de paquetes de Python)
+*   `venv` (módulo para crear entornos virtuales, usualmente incluido con Python)
+*   Git (para clonar el repositorio)
+
+## 🚀 Puesta en Marcha (Getting Started)
+
+Sigue estos pasos para configurar y ejecutar el proyecto en tu máquina local:
+
+1.  **Clona el Repositorio:**
+    ```bash
+    git clone [URL_DE_TU_REPOSITORIO_GIT]
+    cd moonwind
+    ```
+
+2.  **Crea y Activa un Entorno Virtual:**
+    Es altamente recomendable trabajar dentro de un entorno virtual.
+    ```bash
+    python3 -m venv venv
+    ```
+    Actívalo:
+    *   En macOS y Linux:
+        ```bash
+        source venv/bin/activate
+        ```
+    *   En Windows (Git Bash o CMD/PowerShell):
+        ```bash
+        .\venv\Scripts\activate
+        ```
+    Verás `(venv)` al inicio de la línea de tu terminal si se activó correctamente.
+
+3.  **Instala las Dependencias:**
+    Si tienes un archivo `requirements.txt`, ejecuta:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4.  **Configura la Base de Datos:**
+    Los siguientes scripts crearán la estructura de la base de datos (`moonwind.db` dentro de la carpeta `data/`) y la poblarán con datos iniciales. Ejecútalos desde la raíz del proyecto (`moonwind/`):
+    ```bash
+    python3 src/database_setup.py
+    python3 src/seed_data.py
+    ```
+    Después de ejecutar estos comandos, deberías tener un archivo `data/moonwind.db` con las tablas y los datos.
+
+## 🏃 Ejecutando la Aplicación
+
+
+Para iniciar el servidor Flask:
+```bash
+
+
+📁 Estructura del Proyecto
+moonwind/
+├── data/                     # Almacena el archivo de base de datos
+│   └── moonwind.db
+├── src/                      # Código fuente principal de la aplicación
+│   ├── __init__.py
+│   ├── database_setup.py     # Script para crear el esquema de la BD
+│   ├── seed_data.py          # Script para poblar la BD con datos iniciales
+│   ├── utils/                # Módulos de utilidad (ej: db.py para conexión)
+│   │   ├── __init__.py
+│   │   └── db.py
+│   ├── queries/              # Módulos con funciones de consulta SQL
+│   │   ├── __init__.py
+│   │   └── user_queries.py
+│   │   └── codigo_facilito_queries.py
+│   │   └── ... (otros archivos de queries)
+│   └── [app_flask.py]        # (Si tienes un archivo principal para Flask)
+├── venv/                     # Entorno virtual de Python (ignorado por Git)
+├── .gitignore                # Archivos y carpetas ignorados por Git
+├── requirements.txt          # Dependencias del proyecto (generar con `pip freeze > requirements.txt`)
+└── README.md                 # Este archivo
+
+# Moonwind
+
+# Este proyecto utiliza una base de datos en sqlite3. A continuación se explica la estructura y componentes principales:
+
+## 🏗️ Esquema de la Base de Datos
+📄 Tabla users
+Contiene la información de los usuarios registrados.
+
+| Columna           | Tipo      | Descripción                  |
+| ----------------- | --------- | ---------------------------- |
+| `user_id`         | INTEGER   | Primary Key, autoincremental |
+| `username`        | TEXT      | Nombre de usuario único      |
+| `email`           | TEXT      | Correo electrónico único     |
+| `password`        | TEXT      | Contraseña encriptada        |
+| `full_name`       | TEXT      | Nombre completo del usuario  |
+| `profile_picture` | TEXT      | URL o ruta del avatar        |
+| `settings`        | TEXT/JSON | Configuración personalizada  |
+
+📄 Tabla story
+Representa una historia principal que agrupa listas y tarjetas (como en Trello o Notion).
+
+| Columna      | Tipo     | Descripción                           |
+| ------------ | -------- | ------------------------------------- |
+| `story_id`   | INTEGER  | Primary Key                           |
+| `title`      | TEXT     | Título de la historia                 |
+| `created_by` | INTEGER  | Foreign Key → `users.user_id`         |
+| `created_at` | DATETIME | Fecha de creación                     |
+| `is_starred` | INTEGER  | 0 o 1 (booleano) para marcar favorita |
+
+
+📄 Tabla story_members
+Lista de miembros que tienen acceso a una historia.
+
+| Columna     | Tipo     | Descripción                    |
+| ----------- | -------- | ------------------------------ |
+| `user_id`   | INTEGER  | Foreign Key → `users.user_id`  |
+| `story_id`  | INTEGER  | Foreign Key → `story.story_id` |
+| `role`      | TEXT     | `'admin'` o `'member'`         |
+| `joined_at` | DATETIME | Fecha de unión                 |
+
+
+🔐 Clave primaria compuesta: (user_id, story_id)
+
+📄 Tabla lists
+Agrupa tarjetas dentro de una historia.
+
+| Columna    | Tipo    | Descripción                    |
+| ---------- | ------- | ------------------------------ |
+| `list_id`  | INTEGER | Primary Key                    |
+| `title`    | TEXT    | Título de la lista             |
+| `story_id` | INTEGER | Foreign Key → `story.story_id` |
+| `position` | INTEGER | Orden relativo en la historia  |
+
+
+📄 Tabla cards
+Tarjetas dentro de una lista (tareas o ideas).
+
+| Columna       | Tipo     | Descripción                   |
+| ------------- | -------- | ----------------------------- |
+| `card_id`     | INTEGER  | Primary Key                   |
+| `title`       | TEXT     | Título de la tarjeta          |
+| `description` | TEXT     | Descripción larga             |
+| `list_id`     | INTEGER  | Foreign Key → `lists.list_id` |
+| `position`    | INTEGER  | Posición en la lista          |
+| `due_date`    | DATETIME | Fecha límite                  |
+
+
+📄 Tabla comments
+Comentarios que los usuarios hacen en una tarjeta.
+
+| Columna      | Tipo     | Descripción                   |
+| ------------ | -------- | ----------------------------- |
+| `comment_id` | INTEGER  | Primary Key                   |
+| `card_id`    | INTEGER  | Foreign Key → `cards.card_id` |
+| `user_id`    | INTEGER  | Foreign Key → `users.user_id` |
+| `content`    | TEXT     | Texto del comentario          |
+| `created_at` | DATETIME | Fecha y hora del comentario   |
+
+
+📄 Tabla card_assigned_users
+Relaciona usuarios con tarjetas asignadas (muchos a muchos).
+
+| Columna   | Tipo    | Descripción                   |
+| --------- | ------- | ----------------------------- |
+| `card_id` | INTEGER | Foreign Key → `cards.card_id` |
+| `user_id` | INTEGER | Foreign Key → `users.user_id` |
+
+
+🔐 Clave primaria compuesta: (card_id, user_id)
+
+erDiagram
+    users ||--o{ story : creates
+    users ||--o{ story_members : joins
+    users ||--o{ comments : writes
+    users ||--o{ card_assigned_users : assigned
+
+    story ||--o{ lists : contains
+    story ||--o{ story_members : includes
+
+    lists ||--o{ cards : contains
+
+    cards ||--o{ comments : has
+    cards ||--o{ card_assigned_users : has
+
+📘 Notas Técnicas
+Todas las claves foráneas respetan PRAGMA foreign_keys = ON en SQLite.
+
+is_starred actúa como un booleano: 0 (no destacada), 1 (destacada).
+
+Las tablas story_members y card_assigned_users usan claves primarias compuestas para evitar duplicados.
+
+## Flask
+
+Utilizamos **Flask** como framework web para visualizar resultados en el navegador. Flask permite crear endpoints y mostrar los datos almacenados en la base de datos de manera sencilla y eficiente.
+
+## Queries
+En la carpeta `queries/codigo_facilito_queries.py` se encuentran las consultas SQL solicitadas para Código Facilito. Estas queries permiten extraer información específica de la base de datos según los requerimientos del curso o proyecto para correr estas queries hay que irnos a la parte de abajo donde tenemos `if __name__ == '__main__':` y para probar cada querie hay que quitar el comentario dependiendo la que queremos probar y en la terminal corremos el comando
+    ```bash
+    python3 src/database_setup.py
+    python3 src/seed_data.py
+    ```
