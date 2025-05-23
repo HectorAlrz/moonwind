@@ -173,18 +173,24 @@ Relaciona usuarios con tarjetas asignadas (muchos a muchos).
 
 
 🔐 Clave primaria compuesta: (card_id, user_id)
-
+ 
+```mermaid
 erDiagram
-    users --o story : creates
-    users -- story_members : "is member of"
-    story -- story_members : "has members"
-    users --o comments : writes
-    cards --o comments : "has comments on"
-    users -- card_assigned_users : "is assigned to"
-    cards -- card_assigned_users : "has assigned"
-    users --o cards : "creates card"
-    story --o lists : "contains lists"
-    lists --o cards : "contains cards"
+    users ||--o{ story : "creates"
+    users }o--|| story_members : "joins"
+    users ||--o{ comments : "writes"
+    users }o--|| card_assigned_users : "assigned"
+    users ||--o{ cards : "creates"
+
+    story ||--o{ lists : "has"
+    story ||--o{ story_members : "includes"
+
+    lists ||--o{ cards : "has"
+
+    cards ||--o{ comments : "has"
+    cards ||--o{ card_assigned_users : "has"
+    ...
+```
 
 📘 Notas Técnicas
 Todas las claves foráneas respetan PRAGMA foreign_keys = ON en SQLite.
