@@ -12,6 +12,25 @@
 
 ## 📋 Requisitos Previos
 
+## Queries
+
+## Opción 1
+Entrar el google collab donde puedes hacer consultas, y correr las queries requeridas por el equipo de código facilito
+la opción recomendada para no tener que instalar nada en el proyecto
+[Google colab moonwind](https://colab.research.google.com/drive/1-fjCWC0Gids663u0YaCEqRtL8UiByXNs?usp=sharing)
+
+## Opción 2
+En la carpeta `queries/codigo_facilito_queries.py` se encuentran las consultas SQL solicitadas para Código Facilito.
+Estas queries permiten extraer información específica de la base de datos según los requerimientos del curso o proyecto
+para correr estas queries hay que irnos a la parte de abajo donde tenemos `if __name__ == '__main__':`
+y para probar cada querie hay que quitar el comentario dependiendo la que queremos probar y en la terminal corremos el comando:
+
+    ```bash
+    python3 src/database_setup.py
+    python3 src/seed_data.py
+    ```
+
+
 Antes de empezar, asegúrate de tener instalado:
 
 *   Python (se recomienda versión 3.8 o superior)
@@ -58,11 +77,6 @@ Sigue estos pasos para configurar y ejecutar el proyecto en tu máquina local:
     python3 src/seed_data.py
     ```
     Después de ejecutar estos comandos, deberías tener un archivo `data/moonwind.db` con las tablas y los datos.
-
-## 🏃 Ejecutando la Aplicación
-
-
-Para iniciar el servidor Flask:
 ```bash
 
 
@@ -183,15 +197,3 @@ Todas las claves foráneas respetan PRAGMA foreign_keys = ON en SQLite.
 is_starred actúa como un booleano: 0 (no destacada), 1 (destacada).
 
 Las tablas story_members y card_assigned_users usan claves primarias compuestas para evitar duplicados.
-
-
-## Queries
-En la carpeta `queries/codigo_facilito_queries.py` se encuentran las consultas SQL solicitadas para Código Facilito.
-Estas queries permiten extraer información específica de la base de datos según los requerimientos del curso o proyecto
-para correr estas queries hay que irnos a la parte de abajo donde tenemos `if __name__ == '__main__':`
-y para probar cada querie hay que quitar el comentario dependiendo la que queremos probar y en la terminal corremos el comando:
-
-    ```bash
-    python3 src/database_setup.py
-    python3 src/seed_data.py
-    ```
