@@ -173,8 +173,8 @@ Relaciona usuarios con tarjetas asignadas (muchos a muchos).
 
 🔐 Clave primaria compuesta: (card_id, user_id)
 
+```
 # Esquema de la base de datos
-
 ![bootcamp](public/schema.png)
 
 📘 Notas Técnicas
