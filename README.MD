@@ -87,7 +87,8 @@ moonwind/
 
 # Esquema de la base de datos
 
-## 🏗️ Esquema de la Base de Datos
+🏗️ Esquema de la Base de Datos
+
 📄 Tabla users
 Contiene la información de los usuarios registrados.
 
@@ -194,12 +195,13 @@ is_starred actúa como un booleano: 0 (no destacada), 1 (destacada).
 
 Las tablas story_members y card_assigned_users usan claves primarias compuestas para evitar duplicados.
 
-## Flask
-
-Utilizamos **Flask** como framework web para visualizar resultados en el navegador. Flask permite crear endpoints y mostrar los datos almacenados en la base de datos de manera sencilla y eficiente.
 
 ## Queries
-En la carpeta `queries/codigo_facilito_queries.py` se encuentran las consultas SQL solicitadas para Código Facilito. Estas queries permiten extraer información específica de la base de datos según los requerimientos del curso o proyecto para correr estas queries hay que irnos a la parte de abajo donde tenemos `if __name__ == '__main__':` y para probar cada querie hay que quitar el comentario dependiendo la que queremos probar y en la terminal corremos el comando
+En la carpeta `queries/codigo_facilito_queries.py` se encuentran las consultas SQL solicitadas para Código Facilito.
+Estas queries permiten extraer información específica de la base de datos según los requerimientos del curso o proyecto
+para correr estas queries hay que irnos a la parte de abajo donde tenemos `if __name__ == '__main__':`
+y para probar cada querie hay que quitar el comentario dependiendo la que queremos probar y en la terminal corremos el comando:
+
     ```bash
     python3 src/database_setup.py
     python3 src/seed_data.py
